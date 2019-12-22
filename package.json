@@ -1,6 +1,6 @@
 {
   "name": "@atao60/create-project",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A personal CLI to bootstrap new projects",
   "main": "src/index.js",
   "publishConfig": {
@@ -20,16 +20,16 @@
   "license": "MIT",
   "dependencies": {
     "arg": "^4.1.0",
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "covgen": "^3.1.0",
     "esm": "^3.2.18",
-    "execa": "^1.0.0",
+    "execa": "^4.0.0",
     "gitignore": "^0.6.0",
-    "inquirer": "^6.2.2",
+    "inquirer": "^7.0.1",
     "listr": "^0.14.3",
     "ncp": "^2.0.0",
-    "pkg-install": "^0.2.0",
-    "spdx-license-list": "^5.0.0"
+    "pkg-install": "^1.0.0",
+    "spdx-license-list": "^6.1.0"
   },
   "files": [
     "bin/",

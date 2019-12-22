@@ -4,6 +4,7 @@ import { prompt } from 'inquirer';
 export const templateDefs = {
     javascript: { label: "Javascript" },
     typescript: { label: "Typescript" },
+    dummy: { label: "Dummy", url: "https://github.com/atao-web/dummy-startup-kit.git" }
 }
 templateDefs.findTag = label => label.toLowerCase();
 templateDefs.find = label => templateDefs[templateDefs.findTag(label)];
@@ -53,7 +54,7 @@ async function promptForMissingOptions(options) {
             type: 'list',
             name: 'template',
             message: 'Please choose which project template to use',
-            choices: ['javascript', 'typescript'],
+            choices: templateDefs.labels,
             default: defaultTemplate,
         });
     }

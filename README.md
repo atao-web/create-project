@@ -3,6 +3,11 @@
 🏗 A personal CLI to bootstrap new projects. It offers the choice between three templates:
 - Javascript
 - Typescript
+- [dummy-startup-kit](https://github.com/atao-web/dummy-startup-kit)
+
+The first two ones are embedded: they can be installed only with the present stater kit.
+
+The last one is a standalone boilerplate. It can also be installed with `git clone`.
 
 None of them are production ready. They are just proofs of concept for this CLI npm package.
 
@@ -19,7 +24,7 @@ create-project
 
 ## License
 
-MIT
+[MIT](./LICENSE)
 
 ## Collaborators
 

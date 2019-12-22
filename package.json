@@ -1,9 +1,8 @@
 {
-  "name": "@dkundel/create-project",
-  "version": "1.0.0",
-  "description": "A CLI to bootstrap my new projects",
+  "name": "@atao60/create-project",
+  "version": "0.0.1",
+  "description": "A personal CLI to bootstrap new projects",
   "main": "src/index.js",
-  "bin": "bin/create-project",
   "publishConfig": {
     "access": "public"
   },
@@ -15,6 +14,9 @@
     "create-project"
   ],
   "author": "Dominik Kundel <hi@dominik.dev> (https://dkundel.com)",
+  "contributors": [
+    "Pierre Raoul <atao60.web@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "arg": "^4.1.0",
@@ -33,5 +35,16 @@
     "bin/",
     "src/",
     "templates/"
-  ]
+  ],
+  "bin": {
+    "create-project": "bin/create-project"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atao-web/create-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/atao-web/create-project/issues"
+  },
+  "homepage": "https://github.com/atao-web/create-project#readme"
 }

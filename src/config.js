@@ -1,6 +1,16 @@
 import arg from 'arg';
 import { prompt } from 'inquirer';
 
+export const templateDefs = {
+    javascript: { label: "Javascript" },
+    typescript: { label: "Typescript" },
+}
+templateDefs.findTag = label => label.toLowerCase();
+templateDefs.find = label => templateDefs[templateDefs.findTag(label)];
+templateDefs.labels = Object.entries(templateDefs)
+    .filter(([key, value]) => typeof value !== 'function')
+    .map(([key, value]) => value.label || key);
+
 export async function fetchOptionsFrom(args) {
     const rawoptions = parseArgumentsIntoOptions(args);
     return await promptForMissingOptions(rawoptions);

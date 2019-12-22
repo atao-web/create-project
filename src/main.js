@@ -1,18 +1,21 @@
 import chalk from 'chalk';
 import execa from 'execa';
-import fs from 'fs';
-import gitignore from 'gitignore';
+import { access as fsAccess, constants, createWriteStream, writeFile as fsWriteFile } from 'fs';
+import { writeFile as gitignoreWriteFile } from 'gitignore';
 import Listr from 'listr';
 import ncp from 'ncp';
-import path from 'path';
+import { join, resolve } from 'path';
 import { projectInstall } from 'pkg-install';
-import license from 'spdx-license-list/licenses/MIT';
+import { licenseText } from 'spdx-license-list/licenses/MIT';
 import { promisify } from 'util';
+import { cwd, exit } from 'process';
 
-const access = promisify(fs.access);
-const writeFile = promisify(fs.writeFile);
+import { templateDefs } from './config';
+
+const access = promisify(fsAccess);
+const writeFile = promisify(fsWriteFile);
 const copy = promisify(ncp);
-const writeGitignore = promisify(gitignore.writeFile);
+const writeGitignore = promisify(gitignoreWriteFile);
 
 async function copyTemplateFiles(options) {
   return copy(options.templateDirectory, options.targetDirectory, {
@@ -21,8 +24,8 @@ async function copyTemplateFiles(options) {
 }
 
 async function createGitignore(options) {
-  const file = fs.createWriteStream(
-    path.join(options.targetDirectory, '.gitignore'),
+  const file = createWriteStream(
+    join(options.targetDirectory, '.gitignore'),
     { flags: 'a' }
   );
   return writeGitignore({
@@ -32,8 +35,8 @@ async function createGitignore(options) {
 }
 
 async function createLicense(options) {
-  const targetPath = path.join(options.targetDirectory, 'LICENSE');
-  const licenseContent = license.licenseText
+  const targetPath = join(options.targetDirectory, 'LICENSE');
+  const licenseContent = licenseText
     .replace('<year>', new Date().getFullYear())
     .replace('<copyright holders>', `${options.name} (${options.email})`);
   return writeFile(targetPath, licenseContent, 'utf8');
@@ -52,23 +55,25 @@ async function initGit(options) {
 export async function createProject(options) {
   options = {
     ...options,
-    targetDirectory: options.targetDirectory || process.cwd(),
+    targetDirectory: options.targetDirectory || cwd(),
     email: 'hi@dominik.dev',
     name: 'Dominik Kundel',
   };
 
-  const templateDir = path.resolve(
+  const templateTag = templateDefs.findTag(options.template);
+
+  const templateDir = resolve(
     new URL(import.meta.url).pathname,
     '../../templates',
-    options.template
+    templateTag
   );
   options.templateDirectory = templateDir;
 
   try {
-    await access(templateDir, fs.constants.R_OK);
+    await access(templateDir, constants.R_OK);
   } catch (err) {
     console.error('%s Invalid template name', chalk.red.bold('ERROR'));
-    process.exit(1);
+    exit(1);
   }
 
   const tasks = new Listr(

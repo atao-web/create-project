@@ -1,0 +1,37 @@
+// .babelrc files are in Json5: comments are allowed.
+//
+// This file is used:
+// - with `node -r ./src/babel-register.js` when package is directly launched from sources
+// - with `babel ./src --config-file ./.babelrc` when a build is done 
+{
+    "plugins": [
+        "@babel/transform-typescript",
+        // must be set before @babel/proposal-decorators
+        "babel-plugin-transform-typescript-metadata",
+        [   // must be set before @babel/proposal-class-properties
+            "@babel/proposal-decorators",
+            {
+                "legacy": true // 'legacy === true' forces using Typescript decorator specs, not EcmaScript ones
+            }
+        ],
+        [
+            "@babel/proposal-class-properties",
+            {
+                "loose": true // 'loose === true' is required by proposal-decorators' legacy
+            }
+        ]
+    ],
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "node": "10.15.3" // Node version should be at least equal to engine.nodes in package.json
+                },
+                "useBuiltIns": "usage",
+                "corejs": 3
+            }
+        ],
+        "@babel/typescript"
+    ]
+}

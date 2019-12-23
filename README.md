@@ -11,6 +11,8 @@ The last one is a standalone boilerplate. It can also be installed with `git clo
 
 None of them are production ready. They are just proofs of concept for this CLI npm package.
 
+> Under branch [babel7-ts](tree/babel7-ts) is available a version rewritten with [Typescript](https://www.typescriptlang.org/) and [Ecmascript 2018](http://ecma-international.org/ecma-262/9.0/) working together, thanks to [Babel 7](https://babeljs.io/docs/en/).
+
 ## Installation & Usage
 
 ```bash

@@ -144,9 +144,8 @@ export async function createProject(options) {
   const templateTag = templateDefs.findTag(options.template);
   const template = templateDefs[templateTag];
 
-  const currentFileUrl = import.meta.url;
   const templateDir = template && template.url ? template.url : resolve(
-    new URL(currentFileUrl).pathname,
+    __filename, // still 'commonjs' as module
     '../../templates',
     templateTag
   );

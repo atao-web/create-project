@@ -1,16 +1,21 @@
 import arg from 'arg';
 import { prompt } from 'inquirer';
 
-export const templateDefs = {
-    javascript: { label: "Javascript" },
-    typescript: { label: "Typescript" },
-    dummy: { label: "Dummy", url: "https://github.com/atao-web/dummy-startup-kit.git" }
+export class TemplateDefs {
+    private static readonly defs = {
+            javascript: { label: "Javascript" },
+            typescript: { label: "Typescript" },
+            dummy: { label: "Dummy", url: "https://github.com/atao-web/dummy-startup-kit.git" }
+    };    
+    static findTag (name: string) { return name.toLowerCase(); }
+
+    static find (name: string) { 
+        const tag = TemplateDefs.findTag(name);
+
+        return { ...TemplateDefs.defs[tag], tag }; 
+        }
+    static labels () { return Object.values(TemplateDefs.defs).map(d => d.label); }
 }
-templateDefs.findTag = label => label.toLowerCase();
-templateDefs.find = label => templateDefs[templateDefs.findTag(label)];
-templateDefs.labels = Object.entries(templateDefs)
-    .filter(([key, value]) => typeof value !== 'function')
-    .map(([key, value]) => value.label || key);
 
 export async function fetchOptionsFrom(args) {
     const rawoptions = parseArgumentsIntoOptions(args);
@@ -54,7 +59,7 @@ async function promptForMissingOptions(options) {
             type: 'list',
             name: 'template',
             message: 'Please choose which project template to use',
-            choices: templateDefs.labels,
+            choices: TemplateDefs.labels(),
             default: defaultTemplate,
         });
     }
@@ -68,7 +73,7 @@ async function promptForMissingOptions(options) {
         });
     }
 
-    const answers = await prompt(questions);
+    const answers: any = await prompt(questions);
     return {
         ...options,
         template: options.template || answers.template,

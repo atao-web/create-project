@@ -8,17 +8,17 @@ import Listr from 'listr';
 import ncp from 'ncp';
 import { basename, dirname, join, resolve } from 'path';
 import { projectInstall } from 'pkg-install';
-import { licenseText } from 'spdx-license-list/licenses/MIT';
+import { licenseText } from 'spdx-license-list/licenses/MIT.json';
 import { promisify } from 'util';
 import { cwd, exit } from 'process';
 
-import { templateDefs } from './config';
+import { TemplateDefs } from './config';
 
 const writeFile = promisify(fsWriteFile);
 const copy = promisify(ncp);
 const writeGitignore = promisify(gitignoreWriteFile);
 
-const request = async (url, postData) => {
+const request = async (url: string, postData?: any) => {
 
   const lib = (url.search(/^\s*https:\/\//) > -1) ? https : http;
 
@@ -141,13 +141,12 @@ export async function createProject(options) {
     creationYear: 2019
   };
 
-  const templateTag = templateDefs.findTag(options.template);
-  const template = templateDefs[templateTag];
+  const template = TemplateDefs.find(options.template);
 
   const templateDir = template && template.url ? template.url : resolve(
     __filename, // still 'commonjs' as module
     '../../templates',
-    templateTag
+    template.tag
   );
   options.templateDirectory = templateDir;
 

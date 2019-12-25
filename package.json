@@ -8,8 +8,11 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "build": "babel ./src --out-dir ./dist --config-file ./.babelrc --extensions '.ts,.js' --delete-dir-on-start",
     "dev": "babel ./src --watch --out-dir ./dist --config-file ./.babelrc --extensions '.ts,.js' --delete-dir-on-start",
+    "build": "babel ./src --out-dir ./dist --config-file ./.babelrc --extensions '.ts,.js' --delete-dir-on-start",
+    "prepare": "npm run build",
+    "lint": "tsc --project src && eslint src/**/* --ext .js,.ts --quiet",
+    "lint:fix": "eslint --fix src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -53,9 +56,14 @@
     "@types/core-js": "^2.5.2",
     "@types/inquirer": "^6.5.0",
     "@types/node": "^12.12.14",
+    "@typescript-eslint/eslint-plugin": "^2.10.0",
+    "@typescript-eslint/parser": "^2.10.0",
+    "babel-eslint": "^10.0.3",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-transform-typescript-metadata": "^0.2.2",
-    "nodemon": "^2.0.1",
+    "eslint": "^6.7.1",
+    "eslint-config-node": "^4.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "ts-node": "^8.5.3",
     "typescript": ">=3.5 <3.6"
   },

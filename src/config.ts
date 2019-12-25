@@ -3,23 +3,22 @@ import { prompt } from 'inquirer';
 
 export class TemplateDefs {
     private static readonly defs = {
-            javascript: { label: "Javascript" },
-            typescript: { label: "Typescript" },
-            dummy: { label: "Dummy", url: "https://github.com/atao-web/dummy-startup-kit.git" }
-    };    
-    static findTag (name: string) { return name.toLowerCase(); }
+        javascript: { label: "Javascript" },
+        typescript: { label: "Typescript" },
+        dummy: { label: "Dummy", url: 'https://github.com/atao-web/dummy-startup-kit.git' }
+    };
+    static findTag(name: string) {
+        return name.toLowerCase();
+    }
 
-    static find (name: string) { 
+    static find(name: string) {
         const tag = TemplateDefs.findTag(name);
 
-        return { ...TemplateDefs.defs[tag], tag }; 
-        }
-    static labels () { return Object.values(TemplateDefs.defs).map(d => d.label); }
-}
-
-export async function fetchOptionsFrom(args) {
-    const rawoptions = parseArgumentsIntoOptions(args);
-    return await promptForMissingOptions(rawoptions);
+        return { ...TemplateDefs.defs[tag], tag };
+    }
+    static labels() {
+        return Object.values(TemplateDefs.defs).map(d => d.label);
+    }
 }
 
 function parseArgumentsIntoOptions(rawArgs) {
@@ -30,17 +29,17 @@ function parseArgumentsIntoOptions(rawArgs) {
             '--install': Boolean,
             '-g': '--git',
             '-y': '--yes',
-            '-i': '--install',
+            '-i': '--install'
         },
         {
-            argv: rawArgs.slice(2),
+            argv: rawArgs.slice(2)
         }
     );
     return {
         skipPrompts: args['--yes'] || false,
         git: args['--git'] || false,
         template: args._[0],
-        runInstall: args['--install'] || false,
+        runInstall: args['--install'] || false
     };
 }
 
@@ -49,7 +48,7 @@ async function promptForMissingOptions(options) {
     if (options.skipPrompts) {
         return {
             ...options,
-            template: options.template || defaultTemplate,
+            template: options.template || defaultTemplate
         };
     }
 
@@ -60,7 +59,7 @@ async function promptForMissingOptions(options) {
             name: 'template',
             message: 'Please choose which project template to use',
             choices: TemplateDefs.labels(),
-            default: defaultTemplate,
+            default: defaultTemplate
         });
     }
 
@@ -69,7 +68,7 @@ async function promptForMissingOptions(options) {
             type: 'confirm',
             name: 'git',
             message: 'Should a git be initialized?',
-            default: false,
+            default: false
         });
     }
 
@@ -77,6 +76,11 @@ async function promptForMissingOptions(options) {
     return {
         ...options,
         template: options.template || answers.template,
-        git: options.git || answers.git,
+        git: options.git || answers.git
     };
+}
+
+export async function fetchOptionsFrom(args) {
+    const rawoptions = parseArgumentsIntoOptions(args);
+    return await promptForMissingOptions(rawoptions);
 }

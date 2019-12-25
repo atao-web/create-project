@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "build": "babel ./src --out-dir ./dist --config-file ./.babelrc",
-    "dev": "babel ./src --watch --out-dir ./dist --config-file ./.babelrc",
+    "build": "babel ./src --out-dir ./dist --config-file ./.babelrc --extensions '.ts,.js' --delete-dir-on-start",
+    "dev": "babel ./src --watch --out-dir ./dist --config-file ./.babelrc --extensions '.ts,.js' --delete-dir-on-start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

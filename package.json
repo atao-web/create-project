@@ -8,8 +8,9 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "dev": "babel ./src --watch --out-dir ./dist --config-file ./.babelrc --extensions '.ts,.js' --delete-dir-on-start",
-    "build": "babel ./src --out-dir ./dist --config-file ./.babelrc --extensions '.ts,.js' --delete-dir-on-start",
+    "dev": "npm run build:base -- --watch",
+    "build:base": "babel ./src --out-dir ./dist --config-file ./.babelrc --extensions '.ts,.js' --delete-dir-on-start",
+    "build": "npm run build:base -- --source-maps",
     "prepare": "npm run build",
     "lint": "tsc --project src && eslint src/**/* --ext .js,.ts --quiet",
     "lint:fix": "eslint --fix src/",
@@ -17,6 +18,8 @@
   },
   "keywords": [
     "cli",
+    "typescript",
+    "babel7",
     "create-project"
   ],
   "author": "Dominik Kundel <hi@dominik.dev> (https://dkundel.com)",

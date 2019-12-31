@@ -10,8 +10,7 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "lib": [
-            "es2018",
-            "dom"
+            "es2018"
         ]
     },
     "exclude": [

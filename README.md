@@ -15,13 +15,59 @@ None of them are production ready. They are just proofs of concept for this CLI 
 
 ## Installation & Usage
 
+Using package published on npm repo:
+
 ```bash
 npm init @atao60/project
-# or
+### or
 npx @atao60/create-project
-# or
+### or
 npm install -g @atao60/create-project
 create-project
+```
+
+## Development
+
+### Install & watch changes
+
+```bash
+
+npm uninstall -g @atao60/create-project ### if needed
+
+git clone https://github.com/atao-web/create-project.git atao60-create-project
+
+cd atao60-create-project
+
+# rm -f package-lock.json ### only if upgrading dependencies is requiered
+
+npm install
+
+sudo npm link
+
+npm start ### will rebuild after each code change
+
+rm -rf ../tmp-dir && mkdir ../tmp-dir && cd ../tmp-dir
+
+create-project ### any code change will be taken in account immediatly at each launch
+
+```
+
+### Test
+
+***TBD***
+
+### Publish
+
+```bash
+
+npm build ### will build, ready to be published on npm repo
+
+npm publish ### will build and publish on npm repo
+
+rm -rf ../tmp-dir && mkdir ../tmp-dir && cd ../tmp-dir
+
+npx @atao60/create-project ### to used the published package without installing it locally
+
 ```
 
 ## License

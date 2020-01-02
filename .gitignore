@@ -88,3 +88,4 @@ dist
 
 # misc
 .follow-up
+.tmp-dir

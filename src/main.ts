@@ -64,6 +64,7 @@ async function cloneGit(options) {
 }
 
 async function copyTemplateFiles(options, embedded = true) {
+
     if (embedded) {
         return copy(options.templateDirectory, options.targetDirectory, {
             clobber: false
@@ -134,49 +135,54 @@ async function initGit(options) {
 }
 
 export async function createProject(options) {
-    options = {
+
+    const targetDirectory = (options.targetDirectory || '').trim();
+
+    const isTargetPathAbsolute = targetDirectory.startsWith('/');
+
+    const cpOptions = {
         ...options,
-        targetDirectory: options.targetDirectory || cwd(),
+        targetDirectory: isTargetPathAbsolute ? targetDirectory : join(cwd(), targetDirectory),
         copyrightHolders: 'Pierre Raoul',
         creationYear: 2019
     };
 
-    const template = TemplateDefs.find(options.template);
+    const template = TemplateDefs.find(cpOptions.template);
 
     const templateDir = template && template.url ? template.url : resolve(
         __filename, // still 'commonjs' as module
         '../../templates',
         template.tag
     );
-    options.templateDirectory = templateDir;
+    cpOptions.templateDirectory = templateDir;
 
     const tasks = new Listr(
         [
             {
                 title: 'Copy project files',
-                task: ctx => copyTemplateFiles(options, ctx.embedded)
+                task: ctx => copyTemplateFiles(cpOptions, ctx.embedded)
             },
             {
                 title: 'Create gitignore',
-                task: () => createGitignore(options)
+                task: () => createGitignore(cpOptions)
             },
             {
                 title: 'Create License',
-                task: () => createLicense(options)
+                task: () => createLicense(cpOptions)
             },
             {
                 title: 'Initialize git',
-                task: () => initGit(options),
-                enabled: () => options.git
+                task: () => initGit(cpOptions),
+                enabled: () => cpOptions.git
             },
             {
                 title: 'Install dependencies',
                 task: () =>
                     projectInstall({
-                        cwd: options.targetDirectory
+                        cwd: cpOptions.targetDirectory
                     }),
                 skip: () =>
-                    !options.runInstall
+                    !cpOptions.runInstall
                         ? 'Pass --install to automatically install dependencies'
                         : undefined
             }

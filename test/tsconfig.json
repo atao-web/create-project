@@ -14,6 +14,7 @@
             "dom"
         ]
     },
+    "include": ["**/*.test.ts"],
     "exclude": [
         "dist",
         "node_modules"

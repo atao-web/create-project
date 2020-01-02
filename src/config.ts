@@ -22,11 +22,14 @@ export class TemplateDefs {
 }
 
 function parseArgumentsIntoOptions(rawArgs) {
+
     const args = arg(
         {
             '--git': Boolean,
             '--yes': Boolean,
             '--install': Boolean,
+            
+            // aliases
             '-g': '--git',
             '-y': '--yes',
             '-i': '--install'
@@ -35,15 +38,19 @@ function parseArgumentsIntoOptions(rawArgs) {
             argv: rawArgs.slice(2)
         }
     );
-    return {
+
+    const options =  {
         skipPrompts: args['--yes'] || false,
         git: args['--git'] || false,
-        template: args._[0],
+        template: args._[0], // one of the template names
+        targetDirectory: args._[1], // a sub dir under the working directory
         runInstall: args['--install'] || false
     };
+    return options;
 }
 
 async function promptForMissingOptions(options) {
+
     const defaultTemplate = 'javascript';
     if (options.skipPrompts) {
         return {
@@ -73,11 +80,12 @@ async function promptForMissingOptions(options) {
     }
 
     const answers: any = await prompt(questions);
-    return {
+    const config = {
         ...options,
         template: options.template || answers.template,
         git: options.git || answers.git
-    };
+    }
+    return config;
 }
 
 export async function fetchOptionsFrom(args) {

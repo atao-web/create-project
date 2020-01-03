@@ -2,9 +2,10 @@
   "name": "@atao60/create-project",
   "version": "0.0.9",
   "description": "A personal CLI to bootstrap new projects",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index-types.d.ts",
   "bin": {
-    "create-project": "bin/create-project"
+    "create-project": "./bin/create-project"
   },
   "publishConfig": {
     "access": "public"
@@ -16,14 +17,16 @@
     "refresh": "npm run clean:all && npm install",    
     "dev": "npm run build:base -- --watch",
     "build:base": "babel ./src --out-dir ./dist --extensions '.ts,.js' --delete-dir-on-start",
-    "build": "npm run build:base -- --source-maps",
+    "build:maps": "npm run build:base -- --source-maps",
+    "build:types": "tsc --project ./src/tsconfig.types.json",
+    "build": "npm run build:maps && npm run build:types",
     "preversion": "npm test && npm run lint",
     "version": "npm run build && git add -A",
     "postversion": "git push && git push --tags && rimraf ./.tmp-dir",
     "prepublishOnly": "npm run build",
     "lint": "tsc --project src && eslint src/**/* --ext .js,.ts --quiet && eslint test/**/* --ext .js,.ts --quiet",
     "lint:fix": "eslint --fix src/ && eslint --fix test/",
-    "pretest": "npm run build && rimraf ./.tmp-dir",
+    "pretest": "npm run build:maps && rimraf ./.tmp-dir",
     "test": "mocha",
     "test:watch": "nodemon --config ./nodemon-it.json"
   },

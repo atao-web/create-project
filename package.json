@@ -1,6 +1,6 @@
 {
   "name": "@atao60/create-project",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A personal CLI to bootstrap new projects",
   "main": "dist/index.js",
   "publishConfig": {

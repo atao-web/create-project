@@ -28,8 +28,14 @@
     "test:watch": "nodemon --config ./nodemon-it.json"
   },
   "keywords": [
+    "boilerplate",
+    "starter kit",
+    "template",
     "cli",
     "typescript",
+    "javascript",
+    "ecmascript",
+    "babel",
     "babel 7",
     "create-project"
   ],

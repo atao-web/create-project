@@ -75,7 +75,7 @@ describe('The create project CLI', () => {
         )
             .then(() => {
                 expect(existsSync(join(TARGET_DIR, '.gitignore'))).to.be.true;
-                expect(readFileSync(join(TARGET_DIR, '.gitignore'), { encoding: 'utf8' })).to.be.equal("node_modules/")
+                expect(readFileSync(join(TARGET_DIR, '.gitignore'), { encoding: 'utf8' })).to.be.equal("node_modules/");
                 done();
             })
             .catch(err => done(err));

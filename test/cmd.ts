@@ -30,13 +30,13 @@ export const DOWN = '\x1B\x5B\x42';
  * @param {Array} args Arguments to the command
  * @param {Object} env (optional) Environment variables
  */
-export function createProcess (processPath: string, args: { node?: [], app?: [] } | [] = {}, envvars = null) {
+export function createProcess (processPath: string, args: { node?: []; app?: [] } | [] = {}, envvars = null) {
 
     const nodeArgs = Array.isArray(args) ? [] : (args && args.node ? args.node : []);
     const appArgs = Array.isArray(args) ? args : (args && args.app ? args.app : []);
 
     const lastNodeArg: string = (nodeArgs.slice(-1)[0] || '').trim();
-    const isExp2Eval = lastNodeArg === '-e'|| lastNodeArg.startsWith('--eval');
+    const isExp2Eval = lastNodeArg === '-e' || lastNodeArg.startsWith('--eval');
 
     if (!(isExp2Eval || (processPath && existsSync(processPath)))) {
         throw new Error(`Invalid process path: ${processPath}`);
@@ -55,8 +55,9 @@ export function createProcess (processPath: string, args: { node?: [], app?: [] 
         ),
         // Enable IPC in child process. This syntax is explained in
         // Node.js documentation: https://nodejs.org/api/child_process.html#child_process_options_stdio
-        stdio: [null, null, null, 'ipc']  // ie ['pipe', 'pipe', 'pipe', 'ipc' ], the first three are stdin, stdout & stderr
-    }
+        stdio: [null, null, null, 'ipc']  // ie ['pipe', 'pipe', 'pipe', 'ipc' ], 
+        // the first three are stdin, stdout & stderr
+    };
     return spawn(command, commandArgs, options);
 }
 

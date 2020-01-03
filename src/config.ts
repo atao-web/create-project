@@ -84,7 +84,7 @@ async function promptForMissingOptions(options) {
         ...options,
         template: options.template || answers.template,
         git: options.git || answers.git
-    }
+    };
     return config;
 }
 

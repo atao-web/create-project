@@ -3,11 +3,17 @@
   "version": "0.0.9",
   "description": "A personal CLI to bootstrap new projects",
   "main": "dist/index.js",
+  "bin": {
+    "create-project": "bin/create-project"
+  },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "start": "npm run dev",
+    "clean:some": "rimraf ./dist ./.tmp-dir",
+    "clean:all": "rimraf ./node_modules ./package-lock.json && npm run clean:some",
+    "refresh": "npm run clean:all && npm install",    
     "dev": "npm run build:base -- --watch",
     "build:base": "babel ./src --out-dir ./dist --extensions '.ts,.js' --delete-dir-on-start",
     "build": "npm run build:base -- --source-maps",
@@ -24,7 +30,7 @@
   "keywords": [
     "cli",
     "typescript",
-    "babel7",
+    "babel 7",
     "create-project"
   ],
   "author": "Dominik Kundel <hi@dominik.dev> (https://dkundel.com)",
@@ -90,9 +96,6 @@
     "dist/",
     "templates/"
   ],
-  "bin": {
-    "create-project": "bin/create-project"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/atao-web/create-project.git"

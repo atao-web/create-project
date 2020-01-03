@@ -13,6 +13,24 @@ None of them are production ready. They are just proofs of concept for this CLI 
 
 > Under branch [babel7-ts](tree/babel7-ts) is available a version rewritten with [Typescript](https://www.typescriptlang.org/) and [Ecmascript 2018](http://ecma-international.org/ecma-262/9.0/) working together, thanks to [Babel 7](https://babeljs.io/docs/en/).
 
+### Prerequisites 
+
+* [Git](https://git-scm.com/)
+* [Node.js](https://nodejs.org/en/download/)
+* [Npm](https://www.npmjs.com/) - comes with Node.js
+* [Npx](https://github.com/npm/npx#readme) - comes with Node.js
+
+The shell used here is [Bash](https://www.gnu.org/software/bash/) under [Linux](https://www.linuxfoundation.org/). However it should be straightforward to work under any other usual OS as eg Windows or Mac OS X.
+
+Check prerequisites' status:
+```bash
+npm doctor # will show information about git, node, npm...
+git --version
+npm list -g --depth 0 2>&1 | grep create-project # (°)
+```
+
+> (°) replace `2>&1 | grep ...` by its counterpart under Windows or Mac OS X
+
 ## Installation & Usage
 
 Using package published on npm repo:
@@ -25,6 +43,8 @@ npx @atao60/create-project
 npm install -g @atao60/create-project
 create-project
 ```
+> The first two ones work without installing locally the package `@atao60/create-project`.
+
 
 ## Development
 
@@ -32,41 +52,54 @@ create-project
 
 ```bash
 
-npm uninstall -g @atao60/create-project ### if needed
+npm uninstall -g @atao60/create-project ### if needed; required to avoid any issue with `npm link`, see below
 
 git clone https://github.com/atao-web/create-project.git atao60-create-project
 
 cd atao60-create-project
 
-# rm -f package-lock.json ### only if upgrading dependencies is requiered
+git checkout ts-babel7
 
 npm install
 
+# npm outdated
+
+# npm audit
+
+# npx depcheck
+
 sudo npm link
 
-npm start ### will rebuild after each code change
+npm run test:watch ### will rebuild after each code change
+```
 
-rm -rf ../tmp-dir && mkdir ../tmp-dir && cd ../tmp-dir
+### Usage
 
-create-project ### any code change will be taken in account immediatly at each launch
+Doing it from an other console (°), use package from local repository:
+
+```bash
+
+create-project
 
 ```
 
-### Test
-
-***TBD***
+> (°) Under any wished location, even the directory `atao60-create-project` above. 
 
 ### Publish
 
 ```bash
 
-npm build ### will build, ready to be published on npm repo
+npm version patch ### if wished, use 'minor' or 'major' in place of 'patch'
 
-npm publish ### will build and publish on npm repo
+npm publish
 
-rm -rf ../tmp-dir && mkdir ../tmp-dir && cd ../tmp-dir
+### check that everything is fine:
 
-npx @atao60/create-project ### to used the published package without installing it locally
+rm -rf tmp-dir && mkdir tmp-dir && cd tmp-dir
+
+npx @atao60/create-project
+
+ls -al
 
 ```
 

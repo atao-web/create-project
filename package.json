@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "start": "npm run test",
-    "clean:deps": "rimraf ./node_modules ./package-lock.json",
+    "clean:deps": "rimraf ./package-lock.json && ts-node scripts/rmdir.ts './node_modules'",
     "clean:dev": "rimraf ./dist ./.build",
     "clean:full": "npm run clean:dev && npm run clean:deps",
     "clean": "npm run clean:dev",

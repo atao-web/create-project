@@ -1,3 +1,5 @@
+Welcome!
+
 ## Prerequisites 
 
 * [Git](https://git-scm.com/)
@@ -5,7 +7,10 @@
 * [Npm](https://www.npmjs.com/) - comes with Node.js
 * [Npx](https://github.com/npm/npx#readme) - comes with Node.js
 
-The shell used here is [Bash](https://www.gnu.org/software/bash/) under [Linux](https://www.linuxfoundation.org/). However it should be straightforward to work under any other usual OS as eg Windows or Mac OS X.
+and indeed:
+* a [GitHub account](https://github.com/)
+
+The shell used here is [Bash](https://www.gnu.org/software/bash/) under [Linux](https://www.linuxfoundation.org/). However it should be straightforward to work under any other usual OS as Windows or Mac OS X.
 
 Check prerequisites' status:
 ```bash
@@ -17,6 +22,19 @@ npm list -g --depth 0 2>&1 | grep create-project # (°)
 > (°) replace `2>&1 | grep ...` by its counterpart under Windows or Mac OS X
 
 ## Development
+
+### Main scripts
+
+The main available npm scripts are:
+
+- `npm run build` - create a production ready build,
+- `npm version <new version>` - check as much as possible before pushing with the new version
+- `npm run clean` - remove temporary folders as dist, .build, ...
+- `npm run refresh` - remove node modules, package-lock.json, dist, ... and re-installs upgraded dependencies,
+- `npm run lint` - check of code,
+- `npm run test:dev:watch` - rerun build and test after any code changes and made them available through `npm link`.
+
+The scripts `start` and `test` are aliases for `test:dev:watch`.
 
 ### Fork
 
@@ -51,7 +69,7 @@ git checkout my-branch
 
 sudo npm link
 
-npm run test:watch ### will rebuild after each code change
+npm start ### will rebuild and test after each code change
 ```
 
 ### Usage
@@ -111,11 +129,3 @@ git push origin my-branch
 ```
 Lastly open a pull request on Github.
 
-### Miscellaneous
-
-The main available npm scripts are:
-
-- `npm run build` - create build,
-- `npm run refresh` - removes node modules, package-lock.json, dist and re-installs everything,
-- `npm run lint` - check of code syntax,
-- `npm run test:watch` - rerun build and test after any code changes and made them available through `npm link`.

@@ -85,7 +85,8 @@ typings/
 
 # npm package build
 dist
+.build
+.tmp-dir
 
 # misc
 .follow-up
-.tmp-dir

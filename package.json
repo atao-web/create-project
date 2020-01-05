@@ -10,25 +10,35 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "bin/",
+    "dist/",
+    "templates/",
+    "!dist/templates"
+  ],
   "scripts": {
-    "start": "npm run dev",
-    "clean:some": "rimraf ./dist ./.tmp-dir",
-    "clean:all": "rimraf ./node_modules ./package-lock.json && npm run clean:some",
-    "refresh": "npm run clean:all && npm install",    
-    "dev": "npm run build:base -- --watch",
-    "build:base": "babel ./src --out-dir ./dist --extensions '.ts,.js' --delete-dir-on-start",
-    "build:maps": "npm run build:base -- --source-maps",
-    "build:types": "tsc --project ./src/tsconfig.types.json",
-    "build": "npm run build:maps && npm run build:types",
-    "preversion": "npm test && npm run lint",
+    "start": "npm run test",
+    "clean:deps": "rimraf ./node_modules ./package-lock.json",
+    "clean:dev": "rimraf ./dist ./.build",
+    "clean:full": "npm run clean:dev && npm run clean:deps",
+    "clean": "npm run clean:dev",
+    "refresh": "npm run clean:full && npm install",
+    "compile:app:prod": "babel ./src --out-dir ./dist --extensions '.ts,.js' --delete-dir-on-start",
+    "compile:app:types": "tsc --project ./src/tsconfig.types.json",
+    "compile:prod": "npm run compile:app:prod && npm run compile:app:types",
+    "build": "cross-env NODE_ENV=\"production\" npm run compile:prod",
+    "compile:app:dev": "babel ./src --out-dir ./dist --extensions '.ts,.js' --delete-dir-on-start --source-maps",
+    "compile:test:dev": "babel ./test --out-dir ./.build/test --extensions '.ts,.js' --delete-dir-on-start --source-maps",
+    "compiler:dev": "npm run compile:app:dev && npm run compile:test:dev && ncp ./templates ./dist/templates",
+    "test:dev": "npm run compiler:dev && mocha --config ./.mocharc.json",
+    "test:dev:watch": "nodemon --config ./nodemon-it.json",
+    "test": "npm run test:dev:watch",
+    "preversion": "npm run test:dev && npm run lint",
     "version": "npm run build && git add -A",
-    "postversion": "git push && git push --tags && rimraf ./.tmp-dir",
+    "postversion": "git push && git push --tags",
     "prepublishOnly": "npm run build",
     "lint": "tsc --project src && eslint src/**/* --ext .js,.ts --quiet && eslint test/**/* --ext .js,.ts --quiet",
-    "lint:fix": "eslint --fix src/ && eslint --fix test/",
-    "pretest": "npm run build:maps && rimraf ./.tmp-dir",
-    "test": "mocha",
-    "test:watch": "nodemon --config ./nodemon-it.json"
+    "lint:fix": "eslint --fix src/ && eslint --fix test/"
   },
   "keywords": [
     "boilerplate",
@@ -87,9 +97,11 @@
     "@typescript-eslint/parser": "^2.10.0",
     "babel-eslint": "^10.0.3",
     "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-node-source-map-support": "0.0.1",
     "babel-plugin-transform-typescript-metadata": "^0.2.2",
     "chai": "^4.2.0",
     "concat-stream": "^2.0.0",
+    "cross-env": "^6.0.3",
     "cross-spawn": "^7.0.1",
     "eslint": "^6.7.1",
     "eslint-config-node": "^4.0.0",
@@ -97,14 +109,10 @@
     "mocha": "^6.2.2",
     "nodemon": "^2.0.2",
     "rimraf": "^3.0.0",
+    "source-map-support": "^0.5.16",
     "ts-node": "^8.5.3",
     "typescript": ">=3.5 <3.6"
   },
-  "files": [
-    "bin/",
-    "dist/",
-    "templates/"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/atao-web/create-project.git"

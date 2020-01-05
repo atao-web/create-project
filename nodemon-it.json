@@ -9,5 +9,5 @@
         "node_modules",
         ".follow-up"
     ],
-    "exec": "npm test"
+    "exec": "npm run test:dev"
 }

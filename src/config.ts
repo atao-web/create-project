@@ -1,34 +1,39 @@
 import arg from 'arg';
 import { prompt } from 'inquirer';
 
+export class TemplateDef {
+    readonly label: string;
+    readonly url?: string;
+}
+
 export class TemplateDefs {
-    private static readonly defs = {
+    private static readonly defs: { [tag: string]: TemplateDef } = {
         javascript: { label: "Javascript" },
         typescript: { label: "Typescript" },
         dummy: { label: "Dummy", url: 'https://github.com/atao-web/dummy-startup-kit.git' }
     };
-    static findTag(name: string) {
+    static findTag (name: string) {
         return name.toLowerCase();
     }
 
-    static find(name: string) {
+    static find (name: string) {
         const tag = TemplateDefs.findTag(name);
 
         return { ...TemplateDefs.defs[tag], tag };
     }
-    static labels() {
+    static labels () {
         return Object.values(TemplateDefs.defs).map(d => d.label);
     }
 }
 
-function parseArgumentsIntoOptions(rawArgs) {
+function parseArgumentsIntoOptions (rawArgs) {
 
     const args = arg(
         {
             '--git': Boolean,
             '--yes': Boolean,
             '--install': Boolean,
-            
+
             // aliases
             '-g': '--git',
             '-y': '--yes',
@@ -39,7 +44,7 @@ function parseArgumentsIntoOptions(rawArgs) {
         }
     );
 
-    const options =  {
+    const options = {
         skipPrompts: args['--yes'] || false,
         git: args['--git'] || false,
         template: args._[0], // one of the template names
@@ -49,7 +54,7 @@ function parseArgumentsIntoOptions(rawArgs) {
     return options;
 }
 
-async function promptForMissingOptions(options) {
+async function promptForMissingOptions (options) {
 
     const defaultTemplate = 'javascript';
     if (options.skipPrompts) {
@@ -88,7 +93,7 @@ async function promptForMissingOptions(options) {
     return config;
 }
 
-export async function fetchOptionsFrom(args) {
+export async function fetchOptionsFrom (args) {
     const rawoptions = parseArgumentsIntoOptions(args);
     return await promptForMissingOptions(rawoptions);
 }

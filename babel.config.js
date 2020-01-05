@@ -17,7 +17,8 @@ module.exports = (api) => {
       {
         "loose": true // 'loose === true' is required by proposal-decorators' legacy
       }
-    ]
+    ],
+    "babel-plugin-node-source-map-support"
   ];
 
   const presets = [

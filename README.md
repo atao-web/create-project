@@ -43,11 +43,11 @@ This will start the CLI and ask for questions about which template to duplicate 
 
 ## 🛠️ Development
 
-See [Contributing](./CONTRIBUTING.md).
+See [Contributing](CONTRIBUTING.md).
 
 ## ⚖️ License
 
-[MIT](./LICENSE)
+[MIT](LICENSE)
 
 ## ☕ Collaborators
 
@@ -58,4 +58,4 @@ See [Contributing](./CONTRIBUTING.md).
 
 * [How to build a CLI with Node.js](https://www.twilio.com/blog/how-to-build-a-cli-with-node-js), Dominik Kundel, 2019-03-19
 
-See also [other credits](./CREDITS.md).
+See also [other credits](CREDITS.md).

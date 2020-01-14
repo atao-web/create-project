@@ -156,7 +156,7 @@ function executeWithInput (processPath: string, args: {} | [] = {}, inputs: any[
 
         childProcess.on('close', (code) => {
             resolve('Process exit code: ' + code);
-        })
+        });
 
         childProcess.on('error', reject);    // Kick off the process
 

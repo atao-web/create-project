@@ -9,15 +9,23 @@ The first two ones are embedded: they can be installed only with the present sta
 
 The last one is a standalone boilerplate. It can also be installed with `git clone`.
 
-None of them are production ready. They are just proofs of concept for this CLI npm package. 
+None of them are production ready. They are just toys for this CLI npm package.
+
+Furthermore, as this CLI itself is a [sandbox](tree/ts-babel7), breaking changes can occur at any time. Or even it can be removed, plain and simple.
+
+It's a fork of Dominik Kundel's [create-project](https://github.com/dkundel/create-project).
 
 ## 💡 Rational
 
-This CLI itself is a [sandbox](tree/ts-babel7) for: 
-- [Typescript](https://www.typescriptlang.org/) and [Ecmascript 2018](http://ecma-international.org/ecma-262/9.0/) working together, thanks to [Babel 7](https://babeljs.io/docs/en/);
-- Integration tests with [Mocha](https://mochajs.org/) and [spawn](https://www.npmjs.com/package/cross-spawn).
+This [sandbox](tree/ts-babel7) is a [POC](https://en.wikipedia.org/wiki/Proof_of_concept) for integration of: 
+- languages [Typescript](https://www.typescriptlang.org/) and [Ecmascript 2018](http://ecma-international.org/ecma-262/9.0/) working together, thanks to [Babel 7](https://babeljs.io/docs/en/);
+- integration tests with [Mocha](https://mochajs.org/) and [spawn](https://www.npmjs.com/package/cross-spawn),
+- cross-platform scripts (Linux, Windows, OS X).
 
-This [sandbox](tree/ts-babel7) is a fork of Dominik Kundel's [create-project](https://github.com/dkundel/create-project).
+The next step would be to extricate the embedded templates from the cli itself: 
+- each template should be installable with `git clone`,
+- but keep a clear link with the cli. 
+To make it through, a monorepo would be used.
 
 ## 🏁 Quickstart
 
@@ -45,7 +53,7 @@ This will start the CLI and ask for questions about which template to duplicate 
 
 See [Contributing](CONTRIBUTING.md).
 
-## ⚖️ License
+## 🛡 License
 
 [MIT](LICENSE)
 

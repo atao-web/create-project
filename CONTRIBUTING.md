@@ -7,7 +7,7 @@ Welcome!
 * [Npm](https://www.npmjs.com/) - comes with Node.js
 * [Npx](https://github.com/npm/npx#readme) - comes with Node.js
 
-and indeed:
+and possibly:
 * a [GitHub account](https://github.com/)
 
 The shell used here is [Bash](https://www.gnu.org/software/bash/) under [Linux](https://www.linuxfoundation.org/). However it should be straightforward to work under any other usual OS as Windows or Mac OS X.
@@ -41,9 +41,7 @@ The scripts `start` and `test` are aliases for `test:dev:watch`.
 ```bash
 npm uninstall -g @atao60/create-project ### if needed; required to avoid any issue with `npm link`, see below
 
-# git clone https://github.com/atao-web/create-project.git atao60-create-project
-
-git clone <my-forked-repo> atao60-create-project
+git clone https://github.com/atao-web/create-project.git atao60-create-project
 
 cd atao60-create-project
 
@@ -57,15 +55,11 @@ npm install
 
 # npx depcheck
 
-git checkout -b my-branch
-
 ```
 
 ### Watch changes
 
 ```bash
-
-git checkout my-branch
 
 sudo npm link
 
@@ -84,23 +78,39 @@ create-project
 
 > (°) Under any wished location, even the directory `atao60-create-project` above. 
 
+### Pull request
+
+```bash
+
+pwd  ### checking if in the forked project folder
+# <path to>/atao60-create-project
+
+git checkout ts-babel7
+
+git checkout -b my-branch
+
+### do here the wanted changes
+
+git add --all
+
+git commit -m "closing pull request message"
+
+git push origin my-branch
+
+```
+Lastly open a pull request on Github.
+
 ### Publish
 
-![WARNING: Don't do it](https://via.placeholder.com/500x50/FF0000/FFFFFF?text=WARNING:+Don't+do+it!)
+To publish, you must have the access rights for:
+- the package on the [npm](https://www.npmjs.com/) public registry, ie [@atao60/create-project](https://www.npmjs.com/package/@atao60/create-project),
+- the repository on [Github](https://github.com), ie [atao-web/create-project](https://github.com/atao-web/create-project).
 
-That is... don't do as me with the present package! :innocent: See [Pull Request](#pull-request) below.
-
-If you want to go forward:
-- either you have the access rights for the package on the npm public registry and for the non forked repository on github, then:
-  - reset the remote's URL to the non forked repository;
-- or you own a personal account on the npm public registry, then:
-  - change the name of this forked package to create a new package with this name on the npm public registry.
+> The script `npm run version` will push a new version in `package.json` and a new tag with this version as label.
 
 ```bash
 
 git checkout my-branch
-
-# jq '.name="new-npm-package-name"' package.json | sponge package.json ### to be done once before the first publish if in the latter case above
 
 npm version patch ### if wished, use 'minor' or 'major' in place of 'patch'
 
@@ -108,24 +118,9 @@ npm publish
 
 ### check that everything is fine:
 
-rm -rf tmp-dir && mkdir tmp-dir && cd tmp-dir
+cd <any suitable folder>
 
-npx @atao60/create-project  ### or 'new-npm-package-name' if in the latter case above
+npx @atao60/create-project
 
-ls -al
-
-```
-
-### Pull request
-
-From the forked repository where some changes have been made on the branch 'my-branch' and <ins>all of them commited</ins>:
-
-```bash
-
-git checkout my-branch
-
-git push origin my-branch
 
 ```
-Lastly open a pull request on Github.
-

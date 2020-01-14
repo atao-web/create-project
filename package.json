@@ -16,6 +16,12 @@
     "templates/",
     "!dist/templates"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run fullcheck"
+    }
+  },
   "scripts": {
     "start": "npm run test",
     "clean:deps": "rimraf ./package-lock.json && ts-node scripts/rmdir.ts './node_modules'",
@@ -33,9 +39,10 @@
     "test:dev": "npm run compiler:dev && mocha --config ./.mocharc.json",
     "test:dev:watch": "nodemon --config ./nodemon-it.json",
     "test": "npm run test:dev:watch",
-    "preversion": "npm run test:dev && npm run lint",
+    "fullcheck": "npm run test:dev && npm run lint",
+    "preversion": "npm run fullcheck",
     "version": "npm run build && git add -A",
-    "postversion": "git push && git push --tags",
+    "postversion": "cross-env HUSKY_SKIP_HOOKS=1 git push && git push --tags",
     "prepublishOnly": "npm run build",
     "lint": "tsc --project src && eslint src/**/* --ext .js,.ts --quiet && eslint test/**/* --ext .js,.ts --quiet",
     "lint:fix": "eslint --fix src/ && eslint --fix test/"
@@ -106,6 +113,7 @@
     "eslint": "^6.7.1",
     "eslint-config-node": "^4.0.0",
     "eslint-plugin-import": "^2.18.2",
+    "husky": "^4.0.7",
     "mocha": "^6.2.2",
     "nodemon": "^2.0.2",
     "rimraf": "^3.0.0",

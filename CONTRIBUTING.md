@@ -116,9 +116,9 @@ npm version patch ### if wished, use 'minor' or 'major' in place of 'patch'
 
 npm publish
 
-### check that everything is fine:
+### check the published package runs fine:
 
-cd <any suitable folder>
+cd <any suitable folder, even the local repo one>
 
 npx @atao60/create-project
 

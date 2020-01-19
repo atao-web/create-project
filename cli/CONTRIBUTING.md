@@ -6,6 +6,7 @@ Welcome!
 * [Node.js](https://nodejs.org/en/download/)
 * [Npm](https://www.npmjs.com/) - comes with Node.js
 * [Npx](https://github.com/npm/npx#readme) - comes with Node.js
+* [Yarn](https://yarnpkg.com) (°)
 
 and possibly:
 * a [GitHub account](https://github.com/)
@@ -14,20 +15,22 @@ The shell used here is [Bash](https://www.gnu.org/software/bash/) under [Linux](
 
 Check prerequisites' status:
 ```bash
-npm doctor # will show information about git, node, npm...
+sudo npm doctor # will show information about git, node, npm...
 git --version
-npm list -g --depth 0 2>&1 | grep create-project # (°)
+npm list -g --depth 0 2>&1 | grep create-project # (°°)
 ```
 
-> (°) replace `2>&1 | grep ...` by its counterpart under Windows or Mac OS X
+> (°) [Yarn](https://yarnpkg.com) is available as an [Npm](https://www.npmjs.com/) package. Then it ca be installed with `sudo npm i -g yarn` or called with `npx yarn [...]`.
+
+> (°°) replace `2>&1 | grep ...` by its counterpart under Windows or Mac OS X.
 
 ## Development
 
 ### Main scripts
 
-The main available npm scripts are:
+The main available scripts are:
 
-- `npm run build` - create a production ready build,
+- `yarn workspace @atao60/create-project run build` - create a production ready build,
 - `npm version <new version>` - check as much as possible before pushing with the new version
 - `npm run clean` - remove temporary folders as dist, .build, ...
 - `npm run refresh` - remove node modules, package-lock.json, dist, ... and re-installs upgraded dependencies,
@@ -45,15 +48,15 @@ git clone https://github.com/atao-web/create-project.git atao60-create-project
 
 cd atao60-create-project
 
-git checkout ts-babel7
+git checkout monorepo
 
-npm install
+yarn install
 
-# npm outdated
+# yarn outdated
 
-# npm audit
+# yarn audit
 
-# npx depcheck
+# yarn depcheck
 
 ```
 
@@ -61,22 +64,20 @@ npm install
 
 ```bash
 
-sudo npm link
+sudo yarn run link
 
-npm start ### will rebuild and test after each code change
+yarn start ### will rebuild and test after each code change
 ```
 
 ### Usage
 
-Doing it from an other console (°), use package from local repository:
+Doing it from an other console, use package from local repository:
 
 ```bash
 
 create-project
 
 ```
-
-> (°) Under any wished location, even the directory `atao60-create-project` above. 
 
 ### Pull request
 
@@ -85,17 +86,25 @@ create-project
 pwd  ### checking if in the forked project folder
 # <path to>/atao60-create-project
 
-git checkout ts-babel7
+git checkout monorepo
 
 git checkout -b my-branch
 
-### do here the wanted changes
+### do here some changes
+
+git add --all
+
+git commit -m "opening pull request message"
+
+git push --set-upstream origin my-branch
+
+### do here some more changes
 
 git add --all
 
 git commit -m "closing pull request message"
 
-git push origin my-branch
+git push
 
 ```
 Lastly open a pull request on Github.
@@ -106,15 +115,15 @@ To publish, you must have the access rights for:
 - the package on the [npm](https://www.npmjs.com/) public registry, ie [@atao60/create-project](https://www.npmjs.com/package/@atao60/create-project),
 - the repository on [Github](https://github.com), ie [atao-web/create-project](https://github.com/atao-web/create-project).
 
-> The script `npm run version` will push a new version in `package.json` and a new tag with this version as label.
+> The script `yarn run version` will push a new version in the cli's `package.json` and a new tag with this version as label.
 
 ```bash
 
 git checkout my-branch
 
-npm version patch ### if wished, use 'minor' or 'major' in place of 'patch'
+yarn run version patch ### if wished, use 'minor' or 'major' in place of 'patch'
 
-npm publish
+yarn run publish ### Only the cli will be published, but with the embedded templates
 
 ### check the published package runs fine:
 

@@ -1,69 +1,14 @@
-# @atao60/create-project
+# @atao60/create-project as a monorepo
 
-<span style="font-size:2em;">🏗</span> A personal CLI to bootstrap new projects. It offers the choice between three templates:
-- Javascript
-- Typescript
-- [dummy-startup-kit](https://github.com/atao-web/dummy-startup-kit)
+See [readme](cli/README.md).
 
-The first two ones are embedded: they can be installed only with the present starter kit.
+The [cli](cli) itself is now defined as a [workspace](https://yarnpkg.com/lang/en/docs/workspaces/) with [Yarn](https://yarnpkg.com).
 
-The last one is a standalone boilerplate. It can also be installed with `git clone`.
+The templates are still under a sub-folder of the cli.
 
-None of them are production ready. They are just toys for this CLI npm package.
+## Yarn & Npx
 
-Furthermore, as this CLI itself is a [sandbox](tree/ts-babel7), breaking changes can occur at any time. Or even it can be removed, plain and simple.
+All the documentation of this project assumes that [yarn](https://yarnpkg.com) is installed as `global`.
 
-It's a fork of Dominik Kundel's [create-project](https://github.com/dkundel/create-project).
+But it's not required as far as a recent version of [npm](https://www.npmjs.com/) is available. [Npx](https://github.com/npm/npx#readme) can then be used to launch [yarn](https://yarnpkg.com), eg: `npx yarn install`.
 
-## 💡 Rational
-
-This [sandbox](tree/ts-babel7) is a [POC](https://en.wikipedia.org/wiki/Proof_of_concept) for integration of: 
-- languages [Typescript](https://www.typescriptlang.org/) and [Ecmascript 2018](http://ecma-international.org/ecma-262/9.0/) working together, thanks to [Babel 7](https://babeljs.io/docs/en/);
-- integration tests with [Mocha](https://mochajs.org/) and [spawn](https://www.npmjs.com/package/cross-spawn),
-- cross-platform scripts (Linux, Windows, OS X).
-
-The next step would be to extricate the embedded templates from the cli itself: 
-- each template should be installable with `git clone`,
-- but keep a clear link with the cli. 
-To make it through, a monorepo would be used.
-
-## 🏁 Quickstart
-
-Install `@atao60/create-project` as a global CLI:
-
-```bash
-npm install -g @atao60/create-project
-
-create-project
-```
-
-Or just use it via `npx` (or `npm init`):
-
-```bash
-npx @atao60/create-project
-
-### or 
-
-# npm init @atao60/project
-```
-
-This will start the CLI and ask for questions about which template to duplicate and how to customize it!
-
-## 🛠️ Development
-
-See [Contributing](CONTRIBUTING.md).
-
-## 🛡 License
-
-[MIT](LICENSE)
-
-## ☕ Collaborators
-
-- Initial [code](https://github.com/dkundel/create-project): Dominik Kundel <hi@dominik.dev> 
-- Current [sandbox](tree/ts-babel7): Pierre Raoul <atao60.web@gmail.com>
-
-## 📜 Credits
-
-* [How to build a CLI with Node.js](https://www.twilio.com/blog/how-to-build-a-cli-with-node-js), Dominik Kundel, 2019-03-19
-
-See also [other credits](CREDITS.md).

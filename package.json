@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@atao60/create-project-monorepo",
+  "version": "0.1.0",
   "workspaces": [
     "cli",
     "templates/*"

@@ -121,7 +121,7 @@ To publish, you must have the access rights for:
 
 git checkout my-branch
 
-yarn run version patch ### if wished, use 'minor' or 'major' in place of 'patch'
+yarn run version --patch ### if wished, use 'minor' or 'major' in place of 'patch'
 
 yarn run publish ### Only the cli will be published, but with the embedded templates
 

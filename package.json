@@ -6,12 +6,22 @@
     "cli",
     "templates/*"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn workspace @atao60/create-project lint",
+      "pre-push": "yarn workspace @atao60/create-project fullcheck"
+    }
+  },
   "scripts": {
     "start": "yarn workspace @atao60/create-project start",
     "link": "yarn workspace @atao60/create-project link",
-    "version": "cd cli && npm version",
-    "publish": "yarn workspace @atao60/create-project publish",
-    "depcheck": "cd cli && npx depcheck"
+    "depcheck": "cd cli && npx depcheck",
+    "preversion": "yarn workspace @atao60/create-project fullcheck",
+    "version": "yarn workspace @atao60/create-project build && git add -A",
+    "postversion": "cross-env HUSKY_SKIP_HOOKS=1 git push && git push --tags",
+    "publish": "yarn workspace @atao60/create-project publish"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "husky": "^4.0.7"
+  }
 }

@@ -22,6 +22,7 @@
     "publish": "yarn workspace @atao60/create-project publish"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "husky": "^4.0.7"
   }
 }
